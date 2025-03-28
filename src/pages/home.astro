@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getPokemonList } from '../provider/api';
+
+const pokemonData = await getPokemonList(20, 0);
+---
+
+<Layout title="Home">
+	<div transition:name="background" class=" size-full flex items-center justify-center">
+		<ul class="grid grid-cols-12 gap-4">
+			{ pokemonData?.results.map((pokemon: any) => (
+					<li>
+						<a transition:name={pokemon.name} href={`/${pokemon.name}`}>{pokemon.name}</a>
+						<img transition:name={`pokemon-${pokemon.name}`} src="/pokebolaicon.png" class="w-10 h-10" alt="Pokeball Icon" />
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</Layout>

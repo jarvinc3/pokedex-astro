@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getPokemon, getPokemonList } from '../provider/api';
+
+export async function getStaticPaths() {
+   const pokemonList = await getPokemonList();
+   const pokemonArray = Array.isArray(pokemonList) ? pokemonList : [];
+   return pokemonArray.map((pokemon: any) => ({
+      params: { name: pokemon.name },
+   }));
+}
+
+const { name  } = Astro.params
+const pokemon = await getPokemon(name);
+---
+
+<Layout title={name} >
+   <div  transition:name="background" transition:animate="initial" class="flex flex-col items-center justify-center bg-red-300">
+      <h1 class="text-3xl font-bold text-red-500">Pokémon Details</h1>
+      <h2 transition:name={name} class="text-2xl text-gray-800 capitalize">{name}</h2>
+      <img transition:name={`pokemon-${name}`} class="" src="/pokebolaicon.png" width={100} />
+      <p class="text-lg text-gray-600">Height: {pokemon.height}</p>
+      <p class="text-lg text-gray-600">Weight: {pokemon.weight}</p>
+   </div>
+</Layout>
