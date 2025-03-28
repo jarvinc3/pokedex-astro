@@ -1,7 +1,7 @@
 import { defineCollection, z } from "astro:content";
 
 export const pokemon = defineCollection({
-   type: "content",
+   type: "data",
    schema: z.object({
       id: z.number(),
       name: z.string(),

@@ -3,9 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { getPokemon, getPokemonList } from '../provider/api';
 
 export async function getStaticPaths() {
-   const pokemonList = await getPokemonList();
-   const pokemonArray = Array.isArray(pokemonList) ? pokemonList : [];
-   return pokemonArray.map((pokemon: any) => ({
+   const pokemonList = await getPokemonList(10, 0);
+   return pokemonList.results.map((pokemon: any) => ({
       params: { name: pokemon.name },
    }));
 }
